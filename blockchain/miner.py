@@ -28,6 +28,10 @@ def proof_of_work(last_proof):
     #  TODO: Your code here
 
     while not valid_proof(last_proof, proof):
+        current_time = timer()
+        if (current_time - start > 3):
+            return "overtime"
+
         randomNum = random.randint(1,5)
         proof += randomNum
 
@@ -85,6 +89,9 @@ if __name__ == '__main__':
             continue
 
         new_proof = proof_of_work(data.get('proof'))
+
+        if new_proof == "overtime":
+            continue
 
         post_data = {"proof": new_proof, "id": id}
 
